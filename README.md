@@ -1,40 +1,73 @@
 📚 Smart Study Planner
-A modern study planning application built with React and Tailwind CSS to help students organize tasks, track deadlines, and monitor study progress.
+
+A modern and responsive study planning application built with React, Vite, and Tailwind CSS to help students organize study tasks, manage deadlines, and track their study progress efficiently.
 
 🚀 Live Demo
-🔗 https://smart-study-planner-theta-five.vercel.app/
+
+🔗 View Smart Study Planner
 
 ✨ Features
-✅ Add Study Tasks
-✅ Complete / Undo Tasks
-✅ Delete Tasks
-✅ Subject Categorization
-✅ Due Dates
-✅ Search Tasks
-✅ Task Filtering (All / Completed / Pending)
-✅ Dark Mode
-✅ Dashboard Statistics
-✅ Local Storage Persistence
-🛠 Tech Stack
+
+✅ Add new study tasks
+
+✅ Mark tasks as completed or undo completion
+
+✅ Delete study tasks
+
+✅ Categorize tasks by subject
+
+✅ Set due dates for tasks
+
+✅ Search tasks easily
+
+✅ Filter tasks by All, Completed, and Pending
+
+✅ Toggle between Light Mode and Dark Mode
+
+✅ View dashboard statistics
+
+✅ Persist tasks using Local Storage
+
+🛠️ Tech Stack
+
 Frontend
+
 React
+
 Vite
+
 Tailwind CSS
+
 React Router
-Tools
+
+Tools & Deployment
+
 Git
+
 GitHub
+
 Vercel
+
 🎯 Future Improvements
-Edit Tasks
-Task Priority Levels
-User Authentication
-MongoDB Integration
-Study Streak Tracking
+
+✏️ Edit existing tasks
+
+⭐ Add task priority levels
+
+🔐 Implement user authentication
+
+🗄️ Integrate MongoDB for database storage
+
+🔥 Track study streaks and daily progress
+
 👩‍💻 Author
+
 Mst. Mahabuba Akter Eka
 
 Student & Aspiring Full Stack Developer
 
-✅ Project Status
-Live and Deployed on Vercel
+📌 Project Status
+
+Live and Deployed 🚀
+
+The application is currently live and accessible through Vercel.
