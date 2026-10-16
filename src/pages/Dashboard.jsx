@@ -1,133 +1,118 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Dashboard() {
-  const [tasks, setTasks] = useState(() => {
-    const savedTasks = localStorage.getItem("tasks");
-    return savedTasks ? JSON.parse(savedTasks) : [];
-  });
+  const navigate = useNavigate();
 
+  const [tasks, setTasks] = useState([]);
   const [taskInput, setTaskInput] = useState("");
   const [subject, setSubject] = useState("Programming");
   const [dueDate, setDueDate] = useState("");
   const [search, setSearch] = useState("");
-  const [filter, setFilter] = useState("all");
-  const [darkMode, setDarkMode] = useState(false);
+
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-  }, [tasks]);
+    if (!token) {
+      navigate("/");
+      return;
+    }
 
-  const addTask = () => {
-    if (!taskInput.trim()) return;
+    loadTasks();
+  }, []);
 
-    setTasks([
-      ...tasks,
-      {
-        id: Date.now(),
-        title: taskInput,
-        subject,
-        dueDate,
-        completed: false,
-      },
-    ]);
+  const loadTasks = async () => {
+    try {
+      const res = await axios.get(
+        "http://localhost:5000/api/tasks",
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
 
-    setTaskInput("");
-    setDueDate("");
-  };
-
-  const deleteTask = (id) => {
-    setTasks(tasks.filter((task) => task.id !== id));
-  };
-
-  const toggleComplete = (id) => {
-    setTasks(
-      tasks.map((task) =>
-        task.id === id
-          ? { ...task, completed: !task.completed }
-          : task
-      )
-    );
-  };
-
-  const clearAllTasks = () => {
-    if (
-      window.confirm(
-        "Are you sure you want to delete all tasks?"
-      )
-    ) {
-      setTasks([]);
+      setTasks(res.data);
+    } catch (error) {
+      console.log(error);
     }
   };
 
-  const completedTasks = tasks.filter(
-    (task) => task.completed
-  ).length;
+  const addTask = async () => {
+    if (!taskInput.trim()) return;
 
-  const pendingTasks = tasks.length - completedTasks;
+    try {
+      const res = await axios.post(
+        "http://localhost:5000/api/tasks",
+        {
+          title: taskInput,
+          subject,
+          dueDate,
+        },
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
 
-  const filteredTasks = tasks
-    .filter((task) =>
-      task.title
-        .toLowerCase()
-        .includes(search.toLowerCase())
-    )
-    .filter((task) => {
-      if (filter === "completed") return task.completed;
-      if (filter === "pending") return !task.completed;
-      return true;
-    });
+      setTasks([...tasks, res.data]);
+      setTaskInput("");
+      setDueDate("");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+    const deleteTask = async (id) => {
+    try {
+      await axios.delete(
+        `http://localhost:5000/api/tasks/${id}`,
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
+
+      setTasks(
+        tasks.filter(
+          (task) => task._id !== id
+        )
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    navigate("/");
+  };
+
+  const filteredTasks = tasks.filter((task) =>
+    task.title
+      .toLowerCase()
+      .includes(search.toLowerCase())
+  );
 
   return (
-    <div
-      className={
-        darkMode
-          ? "min-h-screen bg-gray-900 text-white p-8"
-          : "min-h-screen bg-gray-100 text-black p-8"
-      }
-    >
+    <div className="min-h-screen bg-gray-100 p-8">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-4xl font-bold">
           Smart Study Planner
         </h1>
 
         <button
-          onClick={() => setDarkMode(!darkMode)}
-          className="bg-indigo-600 text-white px-4 py-2 rounded"
+          onClick={logout}
+          className="bg-red-600 text-white px-4 py-2 rounded"
         >
-          {darkMode ? "☀ Light" : "🌙 Dark"}
+          Logout
         </button>
       </div>
 
-      <div className="grid md:grid-cols-3 gap-4 mb-6">
-        <div className="bg-blue-500 text-white p-4 rounded">
-          <h2>Total Tasks</h2>
-          <p className="text-3xl font-bold">
-            {tasks.length}
-          </p>
-        </div>
-
-        <div className="bg-green-500 text-white p-4 rounded">
-          <h2>Completed</h2>
-          <p className="text-3xl font-bold">
-            {completedTasks}
-          </p>
-        </div>
-
-        <div className="bg-red-500 text-white p-4 rounded">
-          <h2>Pending</h2>
-          <p className="text-3xl font-bold">
-            {pendingTasks}
-          </p>
-        </div>
-      </div>
-
-      <div
-        className={
-          darkMode
-            ? "bg-gray-800 p-5 rounded mb-6"
-            : "bg-white p-5 rounded shadow mb-6"
-        }
-      >
+      <div className="bg-white p-5 rounded shadow mb-6">
         <div className="flex flex-col gap-3">
           <input
             type="text"
@@ -136,7 +121,7 @@ function Dashboard() {
             onChange={(e) =>
               setTaskInput(e.target.value)
             }
-            className="border p-3 rounded text-black"
+            className="border p-3 rounded"
           />
 
           <select
@@ -144,7 +129,7 @@ function Dashboard() {
             onChange={(e) =>
               setSubject(e.target.value)
             }
-            className="border p-3 rounded text-black"
+            className="border p-3 rounded"
           >
             <option>Programming</option>
             <option>Mathematics</option>
@@ -158,7 +143,7 @@ function Dashboard() {
             onChange={(e) =>
               setDueDate(e.target.value)
             }
-            className="border p-3 rounded text-black"
+            className="border p-3 rounded"
           />
 
           <button
@@ -169,109 +154,47 @@ function Dashboard() {
           </button>
         </div>
       </div>
-
-      <input
+            <input
         type="text"
         placeholder="Search Task..."
         value={search}
         onChange={(e) =>
           setSearch(e.target.value)
         }
-        className="border p-3 rounded w-full mb-4 text-black"
+        className="border p-3 rounded w-full mb-4"
       />
 
-      <div className="flex gap-2 mb-4">
-        <button
-          onClick={() => setFilter("all")}
-          className="bg-gray-600 text-white px-3 py-2 rounded"
-        >
-          All
-        </button>
+      <div className="space-y-3">
+        {filteredTasks.map((task) => (
+          <div
+            key={task._id}
+            className="bg-white p-4 rounded shadow flex justify-between items-center"
+          >
+            <div>
+              <h3 className="font-bold">
+                {task.title}
+              </h3>
 
-        <button
-          onClick={() => setFilter("completed")}
-          className="bg-green-600 text-white px-3 py-2 rounded"
-        >
-          Completed
-        </button>
+              <p>
+                Subject: {task.subject}
+              </p>
 
-        <button
-          onClick={() => setFilter("pending")}
-          className="bg-red-600 text-white px-3 py-2 rounded"
-        >
-          Pending
-        </button>
-      </div>
-
-      <button
-        onClick={clearAllTasks}
-        className="bg-black text-white px-4 py-2 rounded mb-6"
-      >
-        Clear All Tasks
-      </button>
-
-      {filteredTasks.length === 0 ? (
-        <div className="text-center mt-10">
-          <h2 className="text-2xl font-bold">
-            📚 No Tasks Found
-          </h2>
-          <p>Add your first study task.</p>
-        </div>
-      ) : (
-        <div className="space-y-3">
-          {filteredTasks.map((task) => (
-            <div
-              key={task.id}
-              className={
-                darkMode
-                  ? "bg-gray-800 p-4 rounded flex justify-between items-center"
-                  : "bg-white p-4 rounded shadow flex justify-between items-center"
-              }
-            >
-              <div>
-                <h3
-                  className={
-                    task.completed
-                      ? "line-through text-green-500 font-bold"
-                      : "font-bold"
-                  }
-                >
-                  {task.title}
-                </h3>
-
-                <p>Subject: {task.subject}</p>
-
-                <p>
-                  Due Date:{" "}
-                  {task.dueDate || "Not Set"}
-                </p>
-              </div>
-
-              <div className="flex gap-2">
-                <button
-                  onClick={() =>
-                    toggleComplete(task.id)
-                  }
-                  className="bg-green-500 text-white px-3 py-2 rounded"
-                >
-                  {task.completed
-                    ? "Undo"
-                    : "Complete"}
-                </button>
-
-                <button
-                  onClick={() =>
-                    deleteTask(task.id)
-                  }
-                  className="bg-red-500 text-white px-3 py-2 rounded"
-                >
-                  Delete
-                </button>
-              </div>
+              <p>
+                Due Date: {task.dueDate || "Not Set"}
+              </p>
             </div>
-          ))}
-        </div>
-      )}
+
+            <button
+              onClick={() =>
+                deleteTask(task._id)
+              }
+              className="bg-red-500 text-white px-3 py-2 rounded"
+            >
+              Delete
+            </button>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
