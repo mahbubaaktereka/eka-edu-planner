@@ -12,19 +12,21 @@ A modern and responsive study planning application built with React, Vite, and T
 
 
 
+
 ## 📸 Screenshots
 
 ### 🎀 Register Page
-![Register Page](./screenshots/Register.png)
+![Register Page](./Screenshots/Register.png)
 
 ### 🔐 Login Page
-![Login Page](./screenshots/Login.png)
+![Login Page](./Screenshots/Login.png)
 
 ### 📊 Dashboard
-![Dashboard](./screenshots/Dashboard.png)
+![Dashboard](./Screenshots/Dashboard.png)
 
 ### 🔔 Reminder Feature
-![Reminder Feature](./screenshots/Reminder.png)
+![Reminder Feature](./Screenshots/Reminder.png)
+
 
 
 ## ✨ Features
