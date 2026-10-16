@@ -1,73 +1,56 @@
-📚 Eka's Edu planner
+# 🎀 Eka's Edu Planner
 
-A modern and responsive study planning application built with React, Vite, and Tailwind CSS to help students organize study tasks, manage deadlines, and track their study progress efficiently.
+A modern and responsive study planning application built with React, Vite, and Tailwind CSS to help students organize study tasks, manage deadlines, and track their progress.
 
-🚀 Live Demo
+## 🚀 Live Demo
 
-https://eka-edu-planner.vercel.app
+🔗 [Explore Eka's Edu Planner](https://eka-edu-planner.vercel.app/)
 
-✨ Features
+## 💻 GitHub Repository
 
-✅ Add new study tasks
+🔗 [View Source Code](https://github.com/mahbubaaktereka/eka-edu-planner)
 
-✅ Mark tasks as completed or undo completion
 
-✅ Delete study tasks
+## 📸 Screenshots
 
-✅ Categorize tasks by subject
+### 🎀 Register Page
+![Register Page](./screenshots/Resgister.png)
 
-✅ Set due dates for tasks
+### 🔐 Login Page
+![Login Page](./screenshots/Login.png)
 
-✅ Search tasks easily
+### 📊 Dashboard
+![Dashboard](./screenshots/Dashboard.png)
 
-✅ Filter tasks by All, Completed, and Pending
+### 🔔 Reminder Feature
+![Reminder Feature](./screenshots/Reminder.png)
 
-✅ Toggle between Light Mode and Dark Mode
+## ✨ Features
 
-✅ View dashboard statistics
+- ➕ Add new study tasks
+- ✅ Complete or undo tasks
+- 🗑️ Delete tasks
+- 📚 Categorize tasks by subject
+- 📅 Set due dates
+- 🔍 Search and filter tasks
+- 📊 View dashboard statistics
+- 💾 Save tasks using Local Storage
 
-✅ Persist tasks using Local Storage
+## 🛠️ Tech Stack
 
-🛠️ Tech Stack
+- **Frontend:** React.js, Vite
+- **Styling:** Tailwind CSS
+- **Routing:** React Router
+- **Storage:** Browser Local Storage
+- **Deployment:** Vercel
+- **Version Control:** Git and GitHub
 
-Frontend
+## 👩‍💻 Author
 
-React
-
-Vite
-
-Tailwind CSS
-
-React Router
-
-Tools & Deployment
-
-Git
-
-GitHub
-
-Vercel
-
-🎯 Future Improvements
-
-✏️ Edit existing tasks
-
-⭐ Add task priority levels
-
-🔐 Implement user authentication
-
-🗄️ Integrate MongoDB for database storage
-
-🔥 Track study streaks and daily progress
-
-👩‍💻 Author
-
-Mst. Mahabuba Akter Eka
+**Mst. Mahabuba Akter Eka**
 
 Student & Aspiring Full Stack Developer
 
-📌 Project Status
+🔗 [Live Project](https://eka-edu-planner.vercel.app/)
 
-Live and Deployed 🚀
-
-The application is currently live and accessible through Vercel.
+🔗 [GitHub Profile](https://github.com/mahbubaaktereka)
