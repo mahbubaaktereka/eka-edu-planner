@@ -4,7 +4,7 @@ A modern and responsive study planning application built with React, Vite, and T
 
 🚀 Live Demo
 
-🔗 View Eka's Edu Planner
+https://eka-edu-planner.vercel.app
 
 ✨ Features
 
