@@ -101,6 +101,16 @@ function Dashboard() {
       .toLowerCase()
       .includes(search.toLowerCase())
   );
+  
+
+   
+  const today = new Date()
+  .toISOString()
+  .split("T")[0];
+
+  const todayTasks = tasks.filter(
+  (task) => task.dueDate === today
+  );
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-50 via-purple-50 to-pink-100 p-8">
@@ -129,7 +139,29 @@ function Dashboard() {
         </button>
 
       </div>
+      <div className="bg-yellow-100 border border-yellow-300 p-5 rounded-3xl shadow-md mb-6">
 
+  <h3 className="text-xl font-bold">
+    🔔 Today's Reminders
+  </h3>
+
+  {todayTasks.length > 0 ? (
+    <div className="mt-3 space-y-2">
+
+      {todayTasks.map((task) => (
+        <p key={task._id}>
+          📚 {task.title}
+        </p>
+      ))}
+
+    </div>
+  ) : (
+    <p className="mt-3 text-gray-600">
+      🎉 No tasks due today!
+    </p>
+  )}
+
+</div>
       <div className="bg-pink-100 border border-pink-200 p-6 rounded-3xl shadow-md mb-6">
 
         <div className="flex flex-col gap-3">
