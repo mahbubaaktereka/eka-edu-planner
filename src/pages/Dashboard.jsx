@@ -7,11 +7,15 @@ function Dashboard() {
 
   const [tasks, setTasks] = useState([]);
   const [taskInput, setTaskInput] = useState("");
-  const [subject, setSubject] = useState("Programming");
+  const [subject, setSubject] = useState("💻 Programming");
   const [dueDate, setDueDate] = useState("");
   const [search, setSearch] = useState("");
 
   const token = localStorage.getItem("token");
+
+  const user = JSON.parse(
+    localStorage.getItem("user")
+  );
 
   useEffect(() => {
     if (!token) {
@@ -58,6 +62,7 @@ function Dashboard() {
       );
 
       setTasks([...tasks, res.data]);
+
       setTaskInput("");
       setDueDate("");
     } catch (error) {
@@ -98,30 +103,45 @@ function Dashboard() {
   );
 
   return (
-    <div className="min-h-screen bg-gray-100 p-8">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-4xl font-bold">
-          Eka's Edu Planner
-        </h1>
+    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-purple-50 to-pink-100 p-8">
+
+      <div className="flex justify-between items-center mb-8">
+
+        <div>
+          <h1 className="text-5xl font-bold text-pink-500">
+             Eka's Edu Planner 🎀
+          </h1>
+
+          <p className="text-xl text-gray-700 mt-3">
+            Welcome, {user?.name} 🌷
+          </p>
+
+          <p className="text-pink-400 mt-2">
+            Stay organized, study smarter and achieve your goals ✨
+          </p>
+        </div>
 
         <button
           onClick={logout}
-          className="bg-red-600 text-white px-4 py-2 rounded"
+          className="bg-gradient-to-r from-purple-400 to-pink-500 text-white px-5 py-3 rounded-2xl shadow-md"
         >
-          Logout
+          💜 Logout
         </button>
+
       </div>
 
-      <div className="bg-white p-5 rounded shadow mb-6">
+      <div className="bg-pink-100 border border-pink-200 p-6 rounded-3xl shadow-md mb-6">
+
         <div className="flex flex-col gap-3">
+
           <input
             type="text"
-            placeholder="Task Name"
+            placeholder="📝 Task Name"
             value={taskInput}
             onChange={(e) =>
               setTaskInput(e.target.value)
             }
-            className="border p-3 rounded"
+            className="border border-pink-300 p-3 rounded-2xl"
           />
 
           <select
@@ -129,72 +149,88 @@ function Dashboard() {
             onChange={(e) =>
               setSubject(e.target.value)
             }
-            className="border p-3 rounded"
+            className="border border-pink-300 p-3 rounded-2xl"
           >
-            <option>Programming</option>
-            <option>Mathematics</option>
-            <option>Physics</option>
-            <option>English</option>
+            <option>💻 Programming</option>
+            <option>📐 Mathematics</option>
+            <option>⚛️ Physics</option>
+            <option>📚 English</option>
           </select>
-
-          <input
+                    <input
             type="date"
             value={dueDate}
             onChange={(e) =>
               setDueDate(e.target.value)
             }
-            className="border p-3 rounded"
+            className="border border-pink-300 p-3 rounded-2xl"
           />
 
           <button
             onClick={addTask}
-            className="bg-blue-600 text-white p-3 rounded"
+            className="bg-gradient-to-r from-pink-400 to-purple-400 text-white p-3 rounded-2xl shadow-md"
           >
-            Add Task
+            ✨ Add Task
           </button>
+
         </div>
       </div>
-            <input
+
+      <input
         type="text"
-        placeholder="Search Task..."
+        placeholder="🔍 Search Task..."
         value={search}
         onChange={(e) =>
           setSearch(e.target.value)
         }
-        className="border p-3 rounded w-full mb-4"
+        className="border border-pink-300 p-3 rounded-2xl w-full mb-4"
       />
 
-      <div className="space-y-3">
-        {filteredTasks.map((task) => (
-          <div
-            key={task._id}
-            className="bg-white p-4 rounded shadow flex justify-between items-center"
-          >
-            <div>
-              <h3 className="font-bold">
-                {task.title}
-              </h3>
+      {filteredTasks.length === 0 ? (
+        <div className="text-center py-12">
+          <h2 className="text-4xl font-bold text-pink-500">
+            🧸 No Study Tasks Yet
+          </h2>
 
-              <p>
-                Subject: {task.subject}
-              </p>
+          <p className="text-gray-500 mt-3">
+            Add your first task and start
+            your productive journey ✨
+          </p>
+        </div>
+      ) : (
+        <div className="space-y-3">
 
-              <p>
-                Due Date: {task.dueDate || "Not Set"}
-              </p>
-            </div>
-
-            <button
-              onClick={() =>
-                deleteTask(task._id)
-              }
-              className="bg-red-500 text-white px-3 py-2 rounded"
+          {filteredTasks.map((task) => (
+            <div
+              key={task._id}
+              className="bg-pink-50 border border-pink-200 p-4 rounded-3xl shadow-md flex justify-between items-center"
             >
-              Delete
-            </button>
-          </div>
-        ))}
-      </div>
+              <div>
+                <h3 className="font-bold text-lg">
+                  {task.title}
+                </h3>
+
+                <p className="mt-1">
+                  {task.subject}
+                </p>
+
+                <p className="text-sm text-gray-500">
+                  Due Date: {task.dueDate || "Not Set"}
+                </p>
+              </div>
+
+              <button
+                onClick={() =>
+                  deleteTask(task._id)
+                }
+                className="bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded-2xl"
+              >
+                🗑 Delete
+              </button>
+            </div>
+          ))}
+
+        </div>
+      )}
     </div>
   );
 }
