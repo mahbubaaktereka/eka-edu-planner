@@ -68,7 +68,29 @@ function Dashboard() {
     } catch (error) {
       console.log(error);
     }
-  };
+  }; const toggleComplete = async (id) => {
+  try {
+    const res = await axios.put(
+      `http://localhost:5000/api/tasks/${id}`,
+      {},
+      {
+        headers: {
+          authorization: token,
+        },
+      }
+    );
+
+    setTasks(
+      tasks.map((task) =>
+        task._id === id ? res.data : task
+      )
+    );
+
+  } catch (error) {
+    console.log(error);
+  }
+};
+``
     const deleteTask = async (id) => {
     try {
       await axios.delete(
@@ -108,9 +130,11 @@ function Dashboard() {
   .toISOString()
   .split("T")[0];
 
-  const todayTasks = tasks.filter(
-  (task) => task.dueDate === today
-  );
+ const todayTasks = tasks.filter(
+  (task) =>
+    task.dueDate === today &&
+    !task.completed
+);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-50 via-purple-50 to-pink-100 p-8">
@@ -237,9 +261,15 @@ function Dashboard() {
               className="bg-pink-50 border border-pink-200 p-4 rounded-3xl shadow-md flex justify-between items-center"
             >
               <div>
-                <h3 className="font-bold text-lg">
-                  {task.title}
-                </h3>
+                <h3
+                   className={`font-bold text-lg ${
+                     task.completed
+                    ? "line-through text-green-600"
+                    : ""
+                      }`}
+>
+                     {task.title}
+                     </h3>
 
                 <p className="mt-1">
                   {task.subject}
@@ -250,14 +280,33 @@ function Dashboard() {
                 </p>
               </div>
 
-              <button
-                onClick={() =>
-                  deleteTask(task._id)
-                }
-                className="bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded-2xl"
-              >
-                🗑 Delete
-              </button>
+               <div className="flex gap-2">
+
+  <button
+    onClick={() =>
+      toggleComplete(task._id)
+    }
+    className={`px-4 py-2 rounded-2xl text-white ${
+      task.completed
+        ? "bg-yellow-500"
+        : "bg-green-500"
+    }`}
+  >
+    {task.completed
+      ? "✅ Completed"
+      : "✅ Complete"}
+  </button>
+
+  <button
+    onClick={() =>
+      deleteTask(task._id)
+    }
+    className="bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded-2xl"
+  >
+    🗑 Delete
+  </button>
+
+</div>
             </div>
           ))}
 
