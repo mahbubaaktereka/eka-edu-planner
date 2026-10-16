@@ -1,10 +1,10 @@
-📚 Smart Study Planner
+📚 Eka's Edu planner
 
 A modern and responsive study planning application built with React, Vite, and Tailwind CSS to help students organize study tasks, manage deadlines, and track their study progress efficiently.
 
 🚀 Live Demo
 
-🔗 View Smart Study Planner
+🔗 View Eka's Edu Planner
 
 ✨ Features
 

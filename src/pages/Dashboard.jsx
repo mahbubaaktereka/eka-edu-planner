@@ -101,7 +101,7 @@ function Dashboard() {
     <div className="min-h-screen bg-gray-100 p-8">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-4xl font-bold">
-          Smart Study Planner
+          Eka's Edu Planner
         </h1>
 
         <button
