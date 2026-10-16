@@ -11,10 +11,11 @@ A modern and responsive study planning application built with React, Vite, and T
 🔗 [View Source Code](https://github.com/mahbubaaktereka/eka-edu-planner)
 
 
+
 ## 📸 Screenshots
 
 ### 🎀 Register Page
-![Register Page](./screenshots/Resgister.png)
+![Register Page](./screenshots/Register.png)
 
 ### 🔐 Login Page
 ![Login Page](./screenshots/Login.png)
@@ -24,6 +25,7 @@ A modern and responsive study planning application built with React, Vite, and T
 
 ### 🔔 Reminder Feature
 ![Reminder Feature](./screenshots/Reminder.png)
+
 
 ## ✨ Features
 
