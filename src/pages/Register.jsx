@@ -14,7 +14,7 @@ function Register() {
 
     try {
       await axios.post(
-        "http://localhost:5000/api/auth/register",
+        "https://server-cyan-omega.vercel.app/api/auth/register",
         {
           name,
           email,
@@ -24,13 +24,15 @@ function Register() {
 
       alert("🎉 Registration Successful!");
       navigate("/");
-    } catch (error) {
-      alert(
-        error.response?.data?.message ||
-          "Registration Failed"
-      );
-    }
-  };
+     } catch (error) {
+        console.log(error);
+        alert(
+         JSON.stringify(error.response?.data) ||
+           error.message ||
+            "Registration Failed"
+         );
+       }
+    };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-50 via-purple-50 to-pink-100 flex items-center justify-center p-4">

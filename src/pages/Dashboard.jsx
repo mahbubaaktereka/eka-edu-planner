@@ -29,7 +29,7 @@ function Dashboard() {
   const loadTasks = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:5000/api/tasks",
+       "https://server-cyan-omega.vercel.app/api/tasks",
         {
           headers: {
             authorization: token,
@@ -48,9 +48,10 @@ function Dashboard() {
 
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/tasks",
+        "https://server-cyan-omega.vercel.app/api/tasks",
         {
           title: taskInput,
+          
           subject,
           dueDate,
         },
@@ -71,7 +72,7 @@ function Dashboard() {
   }; const toggleComplete = async (id) => {
   try {
     const res = await axios.put(
-      `http://localhost:5000/api/tasks/${id}`,
+      `https://server-cyan-omega.vercel.app/api/tasks/${id}`,
       {},
       {
         headers: {
@@ -94,7 +95,7 @@ function Dashboard() {
     const deleteTask = async (id) => {
     try {
       await axios.delete(
-        `http://localhost:5000/api/tasks/${id}`,
+        `https://server-cyan-omega.vercel.app/api/tasks/${id}`,
         {
           headers: {
             authorization: token,
@@ -134,7 +135,10 @@ function Dashboard() {
   (task) =>
     task.dueDate === today &&
     !task.completed
-);
+ ); 
+ const completedTasks = tasks.filter(
+  (task) => task.completed
+  );
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-50 via-purple-50 to-pink-100 p-8">
